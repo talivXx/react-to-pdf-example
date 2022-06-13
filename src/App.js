@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+import { Button } from '@mui/material';
 import './App.css';
+import Example from './Example';
+import JsPDF from 'jspdf';
 
 function App() {
+
+  const generatePDF = () => {
+    const report = new JsPDF('portrait', 'pt', 'a4');
+    report.html(document.querySelector('#report')).then(() => {
+      report.save('report.pdf');
+    })
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Button onClick={generatePDF} color='primary' variant='contained'>DOWNLOAD PDF</Button>
+      <div style={{position: 'absolute', left: 3000}}>
+        <Example />
+      </div>
+      
     </div>
   );
 }
